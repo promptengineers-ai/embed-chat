@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import Embeddable from "./components/Embeddable";
 import { BotConfig } from "./interfaces";
 import { log } from "./utils/log";
+import './index.css'; // Import Tailwind CSS
 
 declare global {
     interface Window {
@@ -15,8 +16,8 @@ window.Bot = (config: BotConfig) => {
 
     // Create a new div to hold the widget
     const widgetContainer = document.createElement("div");
-    widgetContainer.className = "widget-container"; // Optionally, add a class for styling
-    document.body.appendChild(widgetContainer); // Append the new div to the body
+    widgetContainer.className = "widget-container";
+    document.body.appendChild(widgetContainer);
 
     // Use React 18's createRoot API to render the widget inside the new div
     const root = createRoot(widgetContainer);

@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import defaultTheme from "../config/theme";
+import MainButton from "./buttons/MainButton";
 import {
-    MainButton,
+    // MainButton,
     ChatWindow,
     ChatContent,
-    ChatInput,
+    // ChatInput,
     InputArea,
     SubmitButton,
     FiSendIcon,
@@ -26,6 +27,7 @@ import { useChatContext } from "../contexts/ChatContext";
 import DOMPurify from "dompurify";
 import Spinner from "./Spinner";
 import { truncate } from "../utils/format";
+import ChatInput from "./input/ChatInput";
 
 interface EmbedChatProps {
     theme?: any;
@@ -96,37 +98,11 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
 
     return (
         <>
-            <MainButton onClick={toggleChat} theme={theme}>
-                {isChatOpen ? (
-                    <AiOutlineCloseIcon
-                        style={{
-                            padding: theme?.button?.padding,
-                            fontSize:
-                                theme?.button?.fontSize ||
-                                defaultTheme.button.icon.fontSize,
-                        }}
-                    />
-                ) : (
-                    <img
-                        src={
-                            theme?.button?.icon?.src ||
-                            defaultTheme.button.icon.src
-                        }
-                        alt="Logo"
-                        style={{
-                            width:
-                                theme?.button?.icon?.width ||
-                                defaultTheme.button.icon.width,
-                            height:
-                                theme?.button?.icon?.height ||
-                                defaultTheme.button.icon.height,
-                            borderRadius:
-                                theme?.button?.icon?.borderRadius ||
-                                defaultTheme.button.icon.borderRadius,
-                        }}
-                    />
-                )}
-            </MainButton>
+            <MainButton
+                isChatOpen={isChatOpen}
+                toggleChat={toggleChat}
+                theme={null}
+            />
             {isChatOpen && (
                 <ChatWindow theme={theme}>
                     <ControlButtons>
@@ -200,14 +176,14 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                         onClick={() =>
                                                             window.open(
                                                                 item.href,
-                                                                "_blank"
+                                                                "_blank",
                                                             )
                                                         }
                                                     >
                                                         {item.label}
                                                     </GridButton>
                                                 );
-                                            }
+                                            },
                                         )}
                                     </ButtonGrid>
                                 )}
@@ -233,11 +209,11 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                         onClick={() =>
                                                             setChatPayload(
                                                                 (
-                                                                    prev: any
+                                                                    prev: any,
                                                                 ) => ({
                                                                     ...prev,
                                                                     query: item.template,
-                                                                })
+                                                                }),
                                                             )
                                                         }
                                                     >
@@ -260,11 +236,11 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                                                         >
                                                             {truncate(
                                                                 item.template,
-                                                                40
+                                                                40,
                                                             )}
                                                         </div>
                                                     </StarterButton>
-                                                )
+                                                ),
                                             )}
                                         </div>
                                     </div>
@@ -272,37 +248,23 @@ const EmbedChat: React.FC<EmbedChatProps> = ({ theme }) => {
                             </WelcomeArea>
                         )}
                     </ChatContent>
-                    <InputArea>
-                        <ChatInput
-                            // disabled={loading}
-                            ref={chatInputRef}
-                            rows={inputRows}
-                            value={chatPayload.query}
-                            onChange={(e) =>
-                                setChatPayload({
-                                    ...chatPayload,
-                                    query: e.target.value,
-                                })
-                            }
-                            placeholder={
-                                theme?.chatWindow?.chatInput?.placeholder ||
-                                defaultTheme.chatWindow.chatInput.placeholder
-                            }
-                            onKeyDown={handleKeyDown}
-                            theme={theme}
-                        />
-                        {loading ? (
-                            <Spinner theme={theme} />
-                        ) : (
-                            <SubmitButton
-                                onClick={() => sendChatPayload()}
-                                theme={theme}
-                                disabled={loading}
-                            >
-                                <FiSendIcon />
-                            </SubmitButton>
-                        )}
-                    </InputArea>
+                    <div className="tw-w-full tw-border-t tw-bg-white tw-pt-2 md:tw-border-t-0 md:tw-bg-transparent md:tw-pt-0">
+                        <form className="tw-stretch tw-flex tw-flex-row tw-gap-3 lg:tw-mx-auto lg:tw-max-w-2xl xl:tw-max-w-3xl">
+                            <div className="tw-relative tw-flex tw-h-full tw-flex-1 tw-items-stretch md:tw-flex-col">
+                                <div className="tw-flex tw-w-full tw-items-center">
+                                    <div className="tw-shadow-custom tw-bg-primary-300 tw-shadow-xs tw-relative tw-flex tw-w-full tw-flex-grow tw-flex-col tw-overflow-hidden tw-rounded-lg tw-border tw-border-black/10">
+                                        <ChatInput />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div className="tw-text-secondary-100 tw-relative tw-bg-white tw-pt-1 tw-text-center tw-text-[11px]">
+                            <span>
+                                AI can make mistakes. Consider checking
+                                important information.
+                            </span>
+                        </div>
+                    </div>
                 </ChatWindow>
             )}
         </>

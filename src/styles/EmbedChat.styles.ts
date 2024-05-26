@@ -103,31 +103,31 @@ export const InputArea = styled.div`
     background: white;
 `;
 
-export const ChatInput = styled.textarea<ThemeProps>`
-    flex-grow: 1;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 4px;
-    resize: none;
-    font-family: sans-serif;
-    font-size: ${(props) =>
-        props.theme?.chatWindow?.chatInput?.fontSize ||
-        theme.chatWindow.chatInput.fontSize};
-    color: black;
-    &:focus {
-        outline: none;
-    }
-    margin: 0;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    overflow: hidden;
-    &:focus {
-        overflow-y: auto;
-    }
-`;
+// export const ChatInput = styled.textarea<ThemeProps>`
+//     flex-grow: 1;
+//     padding: 8px 10px;
+//     border: none;
+//     border-radius: 4px;
+//     resize: none;
+//     font-family: sans-serif;
+//     font-size: ${(props) =>
+//         props.theme?.chatWindow?.chatInput?.fontSize ||
+//         theme.chatWindow.chatInput.fontSize};
+//     color: black;
+//     &:focus {
+//         outline: none;
+//     }
+//     margin: 0;
+//     &::-webkit-scrollbar {
+//         display: none;
+//     }
+//     -ms-overflow-style: none;
+//     scrollbar-width: none;
+//     overflow: hidden;
+//     &:focus {
+//         overflow-y: auto;
+//     }
+// `;
 
 export const SubmitButton = styled.button<ThemeProps>`
     background: none;
